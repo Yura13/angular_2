@@ -1,18 +1,26 @@
 ///<reference path="../../node_modules/@angular/core/src/metadata/lifecycle_hooks.d.ts"/>
-import { Component, OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked,
-  OnDestroy } from '@angular/core';
+import {
+  Component, OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked,
+  OnDestroy, Input, ViewChild, ContentChild
+} from '@angular/core';
 
 @Component({
   selector: 'fa-lifecycle',
   template: `
-    <p>
-      lifecycle Works!
-    </p>
+    <ng-content></ng-content>
+    <hr>
+    <p #boundParagraph>{{bindable}}</p>
   `,
   styles: []
 })
 export class LifecycleComponent implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked,
   AfterViewInit, AfterViewChecked, OnDestroy {
+
+  @Input() bindable = 1000;
+
+  @ViewChild('boundParagraph') boundParagraph: HTMLElement;
+
+  @ContentChild('boundContent') boundContent: HTMLElement;
 
   constructor() { }
 
@@ -27,12 +35,14 @@ export class LifecycleComponent implements OnChanges, OnInit, DoCheck, AfterCont
   }
   ngAfterContentInit() {
     this.log('ngAfterContentInit');
+    console.log(this.boundContent);
   }
   ngAfterContentChecked() {
     this.log('ngAfterContentChecked');
   }
   ngAfterViewInit() {
     this.log('ngAfterViewInit');
+    console.log(this.boundParagraph);
   }
   ngAfterViewChecked() {
     this.log('ngAfterViewChecked');
