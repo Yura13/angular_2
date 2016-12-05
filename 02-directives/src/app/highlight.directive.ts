@@ -3,7 +3,7 @@ import {Directive, ElementRef, Renderer, HostListener, HostBinding, Input, OnIni
 @Directive({
   selector: '[dirHighlight]'
 })
-export class HighlightDirective {
+export class HighlightDirective implements OnInit {
   @HostListener('mouseenter') mouseover() {
     this.backgroundColor = this.highlightColor;
   };
@@ -16,6 +16,7 @@ export class HighlightDirective {
   @Input() defaultColor = 'white';
   @Input('dirHighlight') highlightColor = 'white';
   private backgroundColor: string;
+
   constructor(private elementRef: ElementRef, private renderer: Renderer) {
     // this.elementRef.nativeElement.style.backgroundColor = 'green';
     // this.renderer.setElementStyle(this.elementRef.nativeElement, 'background-color', 'green');
