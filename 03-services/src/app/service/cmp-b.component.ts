@@ -9,7 +9,6 @@ import {DataService} from "./data.service";
       <input type="text" #input>
       <button (click)="onLog(input.value)">Log</button>
       <button (click)="onStore(input.value)">Store</button>
-      <button (click)="onSend(input.value)">Send</button>
     </div>
     <hr>
     <div>
@@ -42,11 +41,9 @@ export class CmpBComponent implements OnInit {
     this.items = this.dataService.getData().slice();
   }
 
-  onSend(value: string) {
-
-  }
-
   ngOnInit() {
-
+    this.dataService.pushedData.subscribe(
+        data => this.value = data
+    );
   }
 }
