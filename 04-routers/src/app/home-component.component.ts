@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from "rxjs/Rx";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-home-component',
@@ -17,11 +18,13 @@ export class HomeComponent implements OnDestroy {
 
   param: string;
 
-  constructor() {
-
+  constructor(private route: ActivatedRoute) {
+    this.subscription = route.queryParams.subscribe(
+      (queryParam: any) => this.param = queryParam['analytics']
+    );
   }
 
   ngOnDestroy() {
-
+    this.subscription.unsubscribe();
   }
 }
